@@ -8,14 +8,15 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Sync to GitLab
-        uses: wangchucheng/git-repo-sync@v0.1.0
-        with:
-          target-url: ${{ secrets.GITLAB_URL }}
-          target-username: ${{ secrets.GITLAB_USERNAME }}
-          target-token: ${{ secrets.GITLAB_TOKEN }}
+      - name: Push to GitLab manually
+        run: |
+          echo "🚀 Syncing to GitLab..."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add gitlab "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@gitlab.com/${{ secrets.GITLAB_USERNAME }}/HandsOn_UC_Mirror.git"
+          git push --mirror gitlab
