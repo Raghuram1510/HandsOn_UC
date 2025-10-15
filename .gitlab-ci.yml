@@ -1,3 +1,21 @@
+default:
+  # Apply this image to all jobs unless overridden
+  image: python:3.11
+
+# Example setup in .gitlab-ci.yml
+before_script:
+  # Install SSH client if not present in the image
+  - apk add openssh-client  
+  # Start SSH agent
+  - eval $(ssh-agent -s)
+  # Add the private key from the GitLab variable
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  # Add GitHub's host key to known hosts to prevent "Host key verification failed"
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan github.com >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
 stages:
   - build
   - test
