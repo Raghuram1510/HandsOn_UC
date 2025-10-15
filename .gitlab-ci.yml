@@ -1,0 +1,15 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  image: python:3.11
+  script:
+    - echo "✅ GitLab CI build running successfully!"
+    - python --version
+
+test:
+  stage: test
+  script:
+    - echo "✅ Tests passed (placeholder)"
