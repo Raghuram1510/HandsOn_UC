@@ -19,4 +19,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote add gitlab "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@gitlab.com/${{ secrets.GITLAB_USERNAME }}/HandsOn_UC_Mirror.git"
-          git push --mirror gitlab
+          git push gitlab main:main
+
